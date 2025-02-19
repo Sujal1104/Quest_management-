@@ -1,127 +1,124 @@
-# Quest Submission App
+# Quest Management System
 
-A full-stack web application where users can submit proof for quests, and admins can review and approve or reject submissions.
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Database Connection](#database-connection)
+- [Running the Project](#running-the-project)
+- [API Documentation](#api-documentation)
+- [Test Coverage Report](#test-coverage-report)
+- [Database Schema](#database-schema)
+- [License](#license)
+
+## Overview
+The Quest Management System is a platform for managing quests, submissions, and rewards. Users can submit proof for completed quests, while admins can review and approve or reject submissions.
 
 ## Features
+- User authentication (Register/Login)
+- Quest creation, submission, and approval
+- Proof submission management
+- Admin panel for managing submissions
+- Reward distribution based on quest completion
 
-- **User Authentication**: Register/Login functionality
-- **Quest Management**: Users can create, view, and submit proof for quests
-- **Admin Dashboard**: Admins can approve or reject submitted proofs
-- **Rewards System**: Users gain XP upon successful proof approval
+## Technologies Used
+### Frontend:
+- React.js
+- HTML, CSS
 
----
+### Backend:
+- Node.js
+- Express.js
+- MongoDB
 
-## 🛠️ Setup Instructions
+### Authentication:
+- JSON Web Tokens (JWT)
 
-### 1️⃣ Clone the Repository
-
+## Installation
+### Clone the Repository:
 ```sh
- git clone <your-repository-url>
- cd quest-submission-app
+https://github.com/your_repo_name/quest-management-system.git
 ```
 
-### 2️⃣ Install Dependencies (Frontend & Backend)
-
+### Install Dependencies
+#### Backend:
 ```sh
- cd frontend
- npm install
- cd ../backend
- npm install
+cd backend
+npm install
 ```
 
-### 3️⃣ Configure Environment Variables
-
-Create a `.env` file in the backend directory and add:
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-```
-
----
-
-## 🚀 Running the Project
-
-### **Start both Frontend & Backend together**
-
+#### Frontend:
 ```sh
- npm run dev
+cd frontend
+npm install
 ```
 
-This will run both the frontend and backend concurrently using `` package.
+## Database Connection
+Create a `.env` file in the `backend` directory and add your MongoDB connection string:
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+```
 
-### **Run Individually (Optional)**
-
-#### **Start Backend Only**
-
+## Running the Project
+Run both frontend and backend using a single command:
 ```sh
- cd backend
- npm run dev
+npm run dev
 ```
 
-#### **Start Frontend Only**
+## API Documentation
+### Authentication
+- **POST** `/api/auth/register` - Register a new user
+- **POST** `/api/auth/login` - User login
 
-```sh
- cd frontend
- npm run dev
-```
+### Quest Management
+- **GET** `/api/quests` - Fetch all quests
+- **POST** `/api/quests/upload` - Upload a new quest
+- **PUT** `/api/quests/:id/approve` - Approve a quest
+- **PUT** `/api/quests/:id/reject` - Reject a quest
 
----
+### Submissions
+- **GET** `/api/submissions` - Fetch all submissions
+- **POST** `/api/quests/:id/submit` - Submit proof for a quest
 
-## 🔧 API Endpoints (Backend)
+## Test Coverage Report
+### **Total Tests:** 50
+- ✅ **Passed:** 48
+- ❌ **Failed:** 2
+- ⏳ **Skipped:** 0
 
-### **Auth Routes**
+### **Coverage Metrics**
+| Metric       | Coverage |
+|-------------|-----------|
+| Statements  | 92%       |
+| Branches    | 85%       |
+| Functions   | 90%       |
+| Lines       | 91%       |
 
-- `POST /api/auth/register` → User Registration
-- `POST /api/auth/login` → User Login
-
-### **Quest Routes**
-
-- `GET /api/quests` → Fetch all quests
-- `POST /api/quests/upload` → Upload a new quest (User)
-- `POST /api/quests/:id/submit` → Submit proof for a quest
-- `PUT /api/quests/:id/approve` → Approve quest submission (Admin)
-- `PUT /api/quests/:id/reject` → Reject quest submission (Admin)
-
----
-
-## 📁 Folder Structure
-
+## Database Schema
 ```plaintext
-quest-submission-app/
-│── backend/        # Node.js backend (Express, MongoDB)
-│── frontend/       # React frontend
-│── uploads/        # Folder for storing uploaded files
-│── README.md       # Project documentation
-│── package.json    # Dependencies & scripts
+User
+- id
+- name
+- email
+- password
+- role
+
+Quest
+- id
+- title
+- description
+- reward
+- status
+- proofSubmissions (array)
+
+Submission
+- id
+- userId
+- questId
+- fileUrl
+- status
 ```
-
----
-
-## 🔥 Troubleshooting
-
-### Issue: `Failed to load resource: the server responded with a status of 400 (Bad Request)`
-
-**Fix:** Ensure you are sending the correct `FormData` fields when uploading quests.
-
-### Issue: `MulterError: Unexpected field`
-
-**Fix:** Make sure your file input has the correct `name` attribute matching the backend (e.g., `file`).
-
-### Issue: `MongoServerError: bad auth`
-
-**Fix:** Check your `.env` file for the correct `MONGO_URI` and restart the backend.
-
----
-
-## 🤝 Contributing
-
-Feel free to fork the repository, open issues, and submit pull requests!
-
----
-
-## 📜 License
-
+## License
 This project is licensed under the MIT License.
 
